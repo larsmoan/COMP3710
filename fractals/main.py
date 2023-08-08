@@ -6,7 +6,7 @@ print("PyTorch Version:", torch.__version__)
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 print(f"Using {device} for computation")
 
-def gaussian_blur():
+def gaussian():
     #grid for computing image, subdivide the space
     X, Y = np.mgrid[-4.0:4:0.01, -4.0:4:0.01]
     x = torch.tensor(X)
@@ -19,26 +19,26 @@ def gaussian_blur():
     return z
 
 #Change the Gaussian function into a 2D sine function
-
-def sine():
+def sine(a=1, b=0):
     X, Y = np.mgrid[-4.0:4:0.01, -4.0:4:0.01]
     x = torch.tensor(X)
     y = torch.tensor(Y)
-    sine = torch.sin(x*y)
-    return sine
+    z = torch.sin(a*torch.sqrt(x**2 + y**2)+b)
+    return z
 
 def visualize(result):
-    plt.imshow(result.numpy())
+    plt.imshow(result.cpu().numpy())#Updated!
     plt.tight_layout()
     plt.show()
 
-def sine_gauss_product():
-    s = sine()
-    gauss = gaussian_blur()
-    result = s*gauss
-    visualize(result)
-
-sine_gauss_product()
 
 
-#Part two
+
+if __name__ == "__main__":
+    #Part 1
+    visualize(sine(a=2,b=0))
+    #Multiplying the two dimensional sine function with the gaussian, makes sense that this "dampens" out the waves.
+    visualize(gaussian() * sine())
+
+    #Question: Is the 2D sine function correctly implemented? Doesnt exactly look like the Gabor filter
+    
