@@ -1,6 +1,6 @@
 import torch
 import numpy as np
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt 
 
 print("PyTorch Version:", torch.__version__)
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -8,7 +8,10 @@ print(f"Using {device} for computation")
 
 def gaussian(variance:int =4):
     #grid for computing image, subdivide the space
-    X, Y = np.mgrid[-4.0:4:0.01, -4.0:4:0.01]
+    size: int = 4
+    resolution:float = 0.01
+    X, Y = np.mgrid[-size:size:resolution, -size:size:resolution]
+
     x = torch.tensor(X)
     y = torch.tensor(Y)
     #transfer to GPU device, dont know what happens when I dont have a gpu though. Perhaps a waste
@@ -32,7 +35,6 @@ def visualize(result):
     plt.imshow(result.cpu().numpy())#Updated!
     plt.tight_layout()
     plt.show()
-
 
 
 
