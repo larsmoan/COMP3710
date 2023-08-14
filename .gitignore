@@ -1,1 +1,11 @@
 .venv
+.env
+
+#Ignore all . files
+.*
+
+#Ignore pycache
+__pycache__/
+
+
+
