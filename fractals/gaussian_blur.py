@@ -17,7 +17,7 @@ def gaussian(variance:int =4):
     #transfer to GPU device, dont know what happens when I dont have a gpu though. Perhaps a waste
     x = x.to(device)
     y = y.to(device)
-    #Compute the gaussian "blur?"
+
     z = 1/(2*np.pi*variance)*torch.exp(-(x**2+y**2)/(2*variance))
 
     return z
@@ -42,7 +42,10 @@ if __name__ == "__main__":
     #Part 1
     #visualize(sine(a=2,b=0))
     #Multiplying the two dimensional sine function with the gaussian, makes sense that this "dampens" out the waves.
+    visualize(sine())
+    visualize(gaussian())
     visualize(gaussian() * sine())
+    
 
     #Question: Is the 2D sine function correctly implemented? Doesnt exactly look like the Gabor filter
     
