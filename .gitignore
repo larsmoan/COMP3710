@@ -7,5 +7,4 @@
 #Ignore pycache
 __pycache__/
 
-
-
+data/
