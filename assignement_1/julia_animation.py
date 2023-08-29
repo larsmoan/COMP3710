@@ -1,6 +1,7 @@
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 from matplotlib.animation import FuncAnimation
+
 
 # Function to generate Julia set fractal
 def julia_set(width, height, max_iterations, c_real, c_imag):
@@ -13,9 +14,10 @@ def julia_set(width, height, max_iterations, c_real, c_imag):
     for i in range(max_iterations):
         mask = np.abs(Z) < 10
         fractal += mask
-        Z[mask] = Z[mask]**2 + complex(c_real, c_imag)
+        Z[mask] = Z[mask] ** 2 + complex(c_real, c_imag)
 
     return fractal
+
 
 # Function to update animation frame
 def update(frame):
@@ -23,9 +25,10 @@ def update(frame):
     c_real = np.cos(frame * 0.02)
     c_imag = np.sin(frame * 0.02)
     fractal = julia_set(width, height, max_iterations, c_real, c_imag)
-    plt.imshow(fractal, cmap='hot', extent=(-2, 2, -2, 2))
-    plt.title(f'Julia Set Frame {frame}')
-    plt.axis('off')
+    plt.imshow(fractal, cmap="hot", extent=(-2, 2, -2, 2))
+    plt.title(f"Julia Set Frame {frame}")
+    plt.axis("off")
+
 
 # Video parameters
 width = 400
