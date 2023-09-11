@@ -77,7 +77,7 @@ for epoch in range(wandb.config.epochs):
 
       learning_rate = optimizer.param_groups[0]['lr']
       wandb.log({"epoch": epoch, "learning_rate": learning_rate, "loss": loss.item()})  
-    scheduler.step()
+  scheduler.step()
 
   #Testing each epoch
   model.eval()
