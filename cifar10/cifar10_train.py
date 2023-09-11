@@ -58,6 +58,7 @@ scheduler = torch.optim.lr_scheduler.OneCycleLR(optimizer, max_lr=wandb.config.m
 
 
 
+best_acc = 0
 for epoch in range(wandb.config.epochs):
   model.train()
   for i, (images, labels) in enumerate(train_loader):
@@ -91,10 +92,13 @@ for epoch in range(wandb.config.epochs):
       _, predicted = torch.max(outputs.data, 1)
       total += labels.size(0)
       correct += (predicted == labels).sum().item()
+      acc = 100 * correct / total
+      if acc > best_acc:
+        best_acc = acc
+        torch.save(model.state_dict(), 'cifar10_resnet18.pth')
     wandb.log({"accuracy": 100*correct/total})
 
 
 #Get the duration of the script
 end_time = time.time()
-torch.save(model.state_dict(), 'cifar10_resnet18.pth')
 print("Duration of the script: {} seconds".format(end_time - start_time))
