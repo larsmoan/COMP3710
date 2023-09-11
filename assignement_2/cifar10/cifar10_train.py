@@ -11,7 +11,7 @@ start_time = time.time()
 # --------- Hyperparameters ----------
 batch_size = 128
 max_lr = 0.01
-epochs = 35
+epochs = 60
 
 
 # ---------- Device configuration ----------
@@ -66,11 +66,11 @@ for epoch in range(epochs):
     optimizer.zero_grad()
     loss.backward()
     optimizer.step()
-    scheduler.step()
 
     if (i+1) % 100 == 0:
       print("Epoch [{}/{}], Step [{}/{}] Loss {:.5f}".format(epoch+1, epochs, i+1, total_steps, loss.item()))
-    
+
+  scheduler.step()
     
 
 
