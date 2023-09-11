@@ -4,12 +4,14 @@ import torchvision
 import torchvision.transforms as transforms
 from models import ResNet18
 from torch.utils.data import DataLoader
+import time
 
-# --------- Hperparameters ----------
+start_time = time.time()
 
+# --------- Hyperparameters ----------
 batch_size = 128
 max_lr = 0.01
-epochs = 24
+epochs = 35
 
 
 # ---------- Device configuration ----------
@@ -87,3 +89,7 @@ with torch.no_grad():
     correct += (predicted == labels).sum().item()
 
   print("Accuracy of the model on the test images: {}%".format(100*correct/total))
+
+#Get the duration of the script
+end_time = time.time()
+print("Duration of the script: {} seconds".format(end_time - start_time))
