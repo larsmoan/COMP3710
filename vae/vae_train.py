@@ -5,14 +5,28 @@ from torch.utils.data import DataLoader, Dataset
 import torchvision.transforms as transforms
 from torchvision import datasets
 import numpy as np
+import gdown
+import zipfile
+import os
 
-# Assuming you have a function to load the dataset
-def load_dataset():
+
+def get_dataset(folder_name: str, file_id: str='16dS_-kOPkBjNgfVViU9VVnDX9h0ZLfHl'):
+    #Check if the folder name exists
+    if not os.path.exists(folder_name):
+        output = 'dataset.zip'
+        url = f'https://drive.google.com/uc?id={file_id}'
+        gdown.download(url, output, quiet=False)
+        with zipfile.ZipFile(output, 'r') as zip_ref:
+            zip_ref.extractall()
+        os.remove(output)
+    else:
+        print('Dataset is already downloaded')
+        
     transform = transforms.Compose([
         transforms.Resize((256, 256)),
         transforms.ToTensor(),
     ])
-    dataset = datasets.ImageFolder(root='/Users/larsmoan/Documents/UQ/COMP3710/COMP3710/data/vae_mri', transform=transform)
+    dataset = datasets.ImageFolder(root=folder_name, transform=transform)
     return dataset
 
 
@@ -85,7 +99,7 @@ def vae_loss(recon_x, x, mu, logvar):
     return BCE + KLD
 
 # Load and preprocess the dataset
-dataset = load_dataset()
+dataset = get_dataset('vae_mri')
 dataloader = DataLoader(dataset, batch_size=32, shuffle=True)
 
 # Initialize the VAE model
