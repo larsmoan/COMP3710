@@ -5,8 +5,8 @@ import torchvision.transforms as transforms
 import torch
 import torch.nn as nn
 
-""" device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-print('Using device:', device) """
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+print('Using device:', device)
 
 transform = transforms.Compose(
     [transforms.ToTensor(),
@@ -52,8 +52,8 @@ model.train()
 for epoch in range(num_epochs):
   for i, (images, labels) in enumerate(train_loader):
     print(images.shape, i)
-    #images = images.to(device)
-    #labels = labels.to(device)
+    images = images.to(device)
+    labels = labels.to(device)
 
     outputs = model(images)
     loss = criterion(outputs, labels)
