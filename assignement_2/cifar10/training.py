@@ -39,7 +39,7 @@ model.to(device)
 
 #----------- Training --------------
 learning_rate = 0.1
-num_epochs = 5
+num_epochs = 15
 
 
 
@@ -65,5 +65,23 @@ for epoch in range(num_epochs):
 
     if (i+1) % 100 == 0:
       print("Epoch [{}/{}], Step [{}/{}] Loss {:.5f}".format(epoch+1, num_epochs, i+1, total_steps, loss.item()))
-
+  
     scheduler.step()
+
+
+
+#----------- Testing --------------
+model.eval()
+with torch.no_grad():
+  correct = 0
+  total = 0
+  for images, labels in test_loader:
+    images = images.to(device)
+    labels = labels.to(device)
+
+    outputs = model(images)
+    _, predicted = torch.max(outputs.data, 1)
+    total += labels.size(0)
+    correct += (predicted == labels).sum().item()
+
+  print("Accuracy of the model on the test images: {}%".format(100*correct/total))
