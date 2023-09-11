@@ -37,7 +37,7 @@ print(model)
 
 #----------- Training --------------
 learning_rate = 0.1
-num_epochs = 20
+num_epochs = 5
 
 
 
