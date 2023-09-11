@@ -53,7 +53,6 @@ scheduler = torch.optim.lr_scheduler.OneCycleLR(optimizer, max_lr=learning_rate,
 model.train()
 for epoch in range(num_epochs):
   for i, (images, labels) in enumerate(train_loader):
-    print(images.shape, i)
     images = images.to(device)
     labels = labels.to(device)
 
