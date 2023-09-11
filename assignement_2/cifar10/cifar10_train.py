@@ -42,7 +42,7 @@ model.to(device)
 #----------- Training --------------
 
 criterion = nn.CrossEntropyLoss()
-optimizer = torch.optim.SGD(model.parameters(), lr=learning_rate, momentum=0.9)  #Swap out this one for higher acc
+optimizer = torch.optim.SGD(model.parameters(), lr=wandb.config.max_lr, momentum=0.9)  #Swap out this one for higher acc
 
 total_steps = len(train_loader)
 scheduler = torch.optim.lr_scheduler.OneCycleLR(optimizer, max_lr=wandb.config.max_lr, epochs=wandb.config.epochs, total_steps=total_steps)
