@@ -11,7 +11,7 @@ start_time = time.time()
 # --------- Hyperparameters ----------
 batch_size = 128
 max_lr = 0.01
-epochs = 1
+epochs = 35
 
 
 # ---------- Device configuration ----------
