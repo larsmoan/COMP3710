@@ -1,9 +1,9 @@
-from shakes_resnet18 import ResNet18
-import torchvision
-from torch.utils.data import DataLoader
-import torchvision.transforms as transforms
 import torch
 import torch.nn as nn
+import torchvision
+import torchvision.transforms as transforms
+from models import ResNet18, ResNet34
+from torch.utils.data import DataLoader
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 print('Using device:', device)
@@ -21,18 +21,18 @@ transform = transforms.Compose(
 trainset = torchvision.datasets.CIFAR10(root='./data', train=True,
                                         download=True, transform=transform)
 train_loader = torch.utils.data.DataLoader(trainset, batch_size=16,
-                                          shuffle=True)
+                                          shuffle=True, num_workers=2)
 
 testset = torchvision.datasets.CIFAR10(root='./data', train=False,
                                        download=True, transform=transform)
 test_loader = torch.utils.data.DataLoader(testset, batch_size=16,
-                                         shuffle=False)
+                                         shuffle=False, num_workers=1)
 
 
 
 
 model = ResNet18()
-print(model)
+#print(model)
 
 model.to(device)
 

@@ -1,7 +1,7 @@
 #!/bin/bash 
 #SBATCH -N 1
 #SBATCH -n 1
-#SBATCH --job-name=cifar10_training
+#SBATCH --job-name=LARSERN
 #SBATCH --cpus-per-task 1
 #SBATCH --mail-type=All
 #SBATCH --mail-user=lars.ostberg.moan@gmail.com
