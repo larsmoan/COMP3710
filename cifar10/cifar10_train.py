@@ -13,7 +13,7 @@ start_time = time.time()
 # --------- Hyperparameters ----------
 
 wandb.init(project="cluster_CIFAR10_0809", name="more_blocks")
-wandb.config.update({"architecture": "cifar10model", "dataset": "CIFAR-10", "epochs": 35, 
+wandb.config.update({"architecture": "cifar10model", "dataset": "CIFAR-10", "epochs": 80, 
                      "batch_size": 128, "weight_decay": 5e-4, "max_lr": 0.1, "grad_clip": 1.5})
 
 
@@ -57,8 +57,9 @@ total_steps = len(train_loader)
 scheduler = torch.optim.lr_scheduler.OneCycleLR(optimizer, max_lr=wandb.config.max_lr, epochs=wandb.config.epochs, total_steps=total_steps)
 
 
-model.train()
+
 for epoch in range(wandb.config.epochs):
+  model.train()
   for i, (images, labels) in enumerate(train_loader):
     images = images.to(device)
     labels = labels.to(device)
@@ -75,31 +76,25 @@ for epoch in range(wandb.config.epochs):
 
       learning_rate = optimizer.param_groups[0]['lr']
       wandb.log({"epoch": epoch, "learning_rate": learning_rate, "loss": loss.item()})  
+    scheduler.step()
 
+  #Testing each epoch
+  model.eval()
+  with torch.no_grad():
+    correct = 0
+    total = 0
+    for images, labels in test_loader:
+      images = images.to(device)
+      labels = labels.to(device)
 
-  scheduler.step()
-    
+      outputs = model(images)
+      _, predicted = torch.max(outputs.data, 1)
+      total += labels.size(0)
+      correct += (predicted == labels).sum().item()
+    wandb.log({"accuracy": 100*correct/total})
 
-
-
-#----------- Testing --------------
-model.eval()
-with torch.no_grad():
-  correct = 0
-  total = 0
-  for images, labels in test_loader:
-    images = images.to(device)
-    labels = labels.to(device)
-
-    outputs = model(images)
-    _, predicted = torch.max(outputs.data, 1)
-    total += labels.size(0)
-    correct += (predicted == labels).sum().item()
-
-  print("Accuracy of the model on the test images: {}%".format(100*correct/total))
 
 #Get the duration of the script
 end_time = time.time()
-
 torch.save(model.state_dict(), 'cifar10_resnet18.pth')
 print("Duration of the script: {} seconds".format(end_time - start_time))
