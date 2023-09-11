@@ -4,7 +4,7 @@
 #SBATCH --job-name=LARSERN_test
 #SBATCH --cpus-per-task 1
 #SBATCH --mail-type=All
-#SBATCH --mail-user=lars.ostberg.moan@gmail.com
+#SBATCH --mail-user=l.moan@uqconnect.edu.au
 #SBATCH -o out.txt
 #SBATCH -e err.txt
 #SBATCH --partition=vgpu

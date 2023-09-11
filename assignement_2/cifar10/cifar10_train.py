@@ -11,7 +11,7 @@ start_time = time.time()
 # --------- Hyperparameters ----------
 batch_size = 128
 max_lr = 0.01
-epochs = 35
+epochs = 1
 
 
 # ---------- Device configuration ----------
@@ -93,5 +93,5 @@ with torch.no_grad():
 #Get the duration of the script
 end_time = time.time()
 
-model.save("cifar10_resnet18.pth")
+torch.save(model.state_dict(), 'cifar10_resnet18.pth')
 print("Duration of the script: {} seconds".format(end_time - start_time))
