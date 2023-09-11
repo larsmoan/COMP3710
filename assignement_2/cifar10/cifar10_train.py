@@ -12,23 +12,27 @@ max_lr = 0.01
 epochs = 24
 
 
-
 # ---------- Device configuration ----------
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 print('Using device:', device)
 
 
-transform = transforms.Compose(
+train_transform = transforms.Compose(
     [transforms.ToTensor(),
      transforms.Normalize((0.4914, 0.4822, 0.465), (0.2023, 0.01994, 0.2010)),
      transforms.RandomHorizontalFlip(),
      transforms.RandomCrop(32,padding=4, padding_mode='reflect')
 ])
 
+test_transform = transforms.Compose(
+    [transforms.ToTensor(),
+     transforms.Normalize((0.4914, 0.4822, 0.465), (0.2023, 0.01994, 0.2010))
+])
+
 trainset = torchvision.datasets.CIFAR10(root='./data', train=True,
-                                        download=True, transform=transform)
+                                        download=True, transform=train_transform)
 testset = torchvision.datasets.CIFAR10(root='./data', train=False,
-                                       download=True, transform=transform)
+                                       download=True, transform=test_transform)
 
 train_loader = torch.utils.data.DataLoader(trainset, batch_size=batch_size, shuffle=True)
 test_loader = torch.utils.data.DataLoader(testset, batch_size=batch_size*2, shuffle=False)
@@ -63,7 +67,8 @@ for epoch in range(epochs):
 
     if (i+1) % 100 == 0:
       print("Epoch [{}/{}], Step [{}/{}] Loss {:.5f}".format(epoch+1, epochs, i+1, total_steps, loss.item()))
-    scheduler.step()
+    
+  scheduler.step()
 
 
 
