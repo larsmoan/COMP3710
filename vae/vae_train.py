@@ -109,7 +109,7 @@ vae = VAE(latent_dim)
 optimizer = optim.Adam(vae.parameters(), lr=0.001)
 
 # Training loop
-for epoch in range(50):
+for epoch in range(20):
     for batch_idx, data in enumerate(dataloader):
         optimizer.zero_grad()
         recon_batch, mu, logvar = vae(data[0])
