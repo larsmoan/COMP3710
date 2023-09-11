@@ -49,7 +49,7 @@ scheduler = torch.optim.lr_scheduler.OneCycleLR(optimizer, max_lr=wandb.config.m
 
 
 model.train()
-for epoch in range(num_epochs):
+for epoch in range(wandb.config.epochs):
   for i, (images, labels) in enumerate(train_loader):
     images = images.to(device)
     labels = labels.to(device)
