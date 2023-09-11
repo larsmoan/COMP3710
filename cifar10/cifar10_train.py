@@ -12,7 +12,7 @@ start_time = time.time()
 
 # --------- Hyperparameters ----------
 
-wandb.init(project="cluster_CIFAR10_0809", name="more_blocks")
+wandb.init(project="cluster_CIFAR10", name="RESNET_18")
 wandb.config.update({"architecture": "cifar10model", "dataset": "CIFAR-10", "epochs": 80, 
                      "batch_size": 128, "weight_decay": 5e-4, "max_lr": 0.1, "grad_clip": 1.5})
 
@@ -45,7 +45,7 @@ test_loader = torch.utils.data.DataLoader(testset, batch_size=wandb.config.batch
 
 
 # ---------- Model ----------
-model = ResNet34()
+model = ResNet18()
 model.to(device)
 
 
