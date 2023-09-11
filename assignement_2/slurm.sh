@@ -12,4 +12,4 @@
 
 conda activate comp3710-env
 
-python ~/test.py
+python ./test.py
