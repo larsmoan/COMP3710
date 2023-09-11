@@ -67,5 +67,5 @@ class ResNet(nn.Module):
 def ResNet18():
   return ResNet(BasicBlock, [2, 2, 2, 2])
 
-def Resnet34():
+def ResNet34():
   return ResNet(BasicBlock, [3, 4, 6, 3])

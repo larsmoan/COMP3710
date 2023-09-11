@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 import torchvision
 import torchvision.transforms as transforms
-from models import ResNet18
+from models import ResNet18, ResNet34
 from torch.utils.data import DataLoader
 import time
 import wandb
@@ -45,13 +45,13 @@ test_loader = torch.utils.data.DataLoader(testset, batch_size=wandb.config.batch
 
 
 # ---------- Model ----------
-model = ResNet18()
+model = ResNet34()
 model.to(device)
 
 
 #----------- Training --------------
 criterion = nn.CrossEntropyLoss()
-optimizer = torch.optim.SGD(model.parameters(), lr=wandb.config.max_lr, momentum=0.9)  #Swap out this one for higher acc
+optimizer = torch.optim.SGD(model.parameters(), lr=wandb.config.max_lr, momentum=0.9, weight_decay=wandb.config.weight_decay)  #Swap out this one for higher acc
 
 total_steps = len(train_loader)
 scheduler = torch.optim.lr_scheduler.OneCycleLR(optimizer, max_lr=wandb.config.max_lr, epochs=wandb.config.epochs, total_steps=total_steps)
