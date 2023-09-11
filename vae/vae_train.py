@@ -10,8 +10,7 @@ import zipfile
 import os
 
 
-def get_dataset(folder_name: str, file_id: str='16dS_-kOPkBjNgfVViU9VVnDX9h0ZLfHl'):
-    #Check if the folder name exists
+def get_dataset(folder_name: str, file_id: str='16dS_-kOPkBjNgfVViU9VVnDX9h0ZLfHl')
     if not os.path.exists(folder_name):
         output = 'dataset.zip'
         url = f'https://drive.google.com/uc?id={file_id}'

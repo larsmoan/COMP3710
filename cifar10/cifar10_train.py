@@ -5,13 +5,16 @@ import torchvision.transforms as transforms
 from models import ResNet18
 from torch.utils.data import DataLoader
 import time
+import wandb
+
 
 start_time = time.time()
 
 # --------- Hyperparameters ----------
-batch_size = 128
-max_lr = 0.01
-epochs = 110
+
+wandb.init(project="cluster_CIFAR10_0809", name="more_blocks")
+wandb.config.update({"architecture": "cifar10model", "dataset": "CIFAR-10", "epochs": 35, 
+                     "batch_size": 128, "weight_decay": 5e-4, "max_lr": 0.1, "grad_clip": 1.5})
 
 
 # ---------- Device configuration ----------
@@ -36,8 +39,8 @@ trainset = torchvision.datasets.CIFAR10(root='./data', train=True,
 testset = torchvision.datasets.CIFAR10(root='./data', train=False,
                                        download=True, transform=test_transform)
 
-train_loader = torch.utils.data.DataLoader(trainset, batch_size=batch_size, shuffle=True)
-test_loader = torch.utils.data.DataLoader(testset, batch_size=batch_size*2, shuffle=False)
+train_loader = torch.utils.data.DataLoader(trainset, batch_size=wandb.config.batch_size, shuffle=True)
+test_loader = torch.utils.data.DataLoader(testset, batch_size=wandb.config.batch_size*2, shuffle=False)
                       
 
 
@@ -48,14 +51,14 @@ model.to(device)
 
 #----------- Training --------------
 criterion = nn.CrossEntropyLoss()
-optimizer = torch.optim.SGD(model.parameters(), lr=max_lr, momentum=0.9)  #Swap out this one for higher acc
+optimizer = torch.optim.SGD(model.parameters(), lr=wandb.config.max_lr, momentum=0.9)  #Swap out this one for higher acc
 
 total_steps = len(train_loader)
-scheduler = torch.optim.lr_scheduler.OneCycleLR(optimizer, max_lr=max_lr, epochs=epochs, total_steps=total_steps)
+scheduler = torch.optim.lr_scheduler.OneCycleLR(optimizer, max_lr=wandb.config.max_lr, epochs=wandb.config.epochs, total_steps=total_steps)
 
 
 model.train()
-for epoch in range(epochs):
+for epoch in range(wandb.config.epochs):
   for i, (images, labels) in enumerate(train_loader):
     images = images.to(device)
     labels = labels.to(device)
@@ -68,7 +71,7 @@ for epoch in range(epochs):
     optimizer.step()
 
     if (i+1) % 100 == 0:
-      print("Epoch [{}/{}], Step [{}/{}] Loss {:.5f}".format(epoch+1, epochs, i+1, total_steps, loss.item()))
+      print("Epoch [{}/{}], Step [{}/{}] Loss {:.5f}".format(epoch+1, wandb.config.epochs, i+1, total_steps, loss.item()))
 
   scheduler.step()
     
