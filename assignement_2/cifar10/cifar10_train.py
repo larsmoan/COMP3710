@@ -92,4 +92,6 @@ with torch.no_grad():
 
 #Get the duration of the script
 end_time = time.time()
+
+model.save("cifar10_resnet18.pth")
 print("Duration of the script: {} seconds".format(end_time - start_time))
