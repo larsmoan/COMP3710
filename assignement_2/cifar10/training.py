@@ -34,6 +34,8 @@ test_loader = torch.utils.data.DataLoader(testset, batch_size=16,
 model = ResNet18()
 print(model)
 
+model.to(device)
+
 
 #----------- Training --------------
 learning_rate = 0.1
