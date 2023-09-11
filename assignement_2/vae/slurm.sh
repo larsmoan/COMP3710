@@ -7,7 +7,7 @@
 #SBATCH --mail-user=l.moan@uqconnect.edu.au
 #SBATCH -o out.txt
 #SBATCH -e err.txt
-#SBATCH --partition=vgpu
+#SBATCH --partitiontest
 #SBATCH --gres=gpu:1
 
 conda activate comp3710-env
