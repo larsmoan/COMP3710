@@ -12,4 +12,4 @@
 
 conda activate comp3710-env
 
-python training.py
+python cifar10_train.py
