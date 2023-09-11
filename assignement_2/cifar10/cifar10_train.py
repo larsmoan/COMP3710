@@ -62,7 +62,7 @@ for epoch in range(wandb.config.epochs):
     optimizer.step()
 
     if (i+1) % 100 == 0:
-      print("Epoch [{}/{}], Step [{}/{}] Loss {:.5f}".format(epoch+1, num_epochs, i+1, total_steps, loss.item()))
+      print("Epoch [{}/{}], Step [{}/{}] Loss {:.5f}".format(epoch+1, wand.config.epochs, i+1, total_steps, loss.item()))
     scheduler.step()
 
 
