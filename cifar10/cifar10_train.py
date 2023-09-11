@@ -74,7 +74,7 @@ for epoch in range(wandb.config.epochs):
       print("Epoch [{}/{}], Step [{}/{}] Loss {:.5f}".format(epoch+1, wandb.config.epochs, i+1, total_steps, loss.item()))
 
       learning_rate = optimizer.param_groups[0]['lr']
-      wandb.log({"epoch": epoch, "learning_rate": u.get_lr(optimizer)})  
+      wandb.log({"epoch": epoch, "learning_rate": learning_rate, "loss": loss.item()})  
 
 
   scheduler.step()
