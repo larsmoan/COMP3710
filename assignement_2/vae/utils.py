@@ -50,7 +50,7 @@ def plot_input_output(random_image, reconstructed_image):
 
 def plot_generated_image(generated_image):
     # Assuming 'generated_image' is in range [0, 1]
-    generated_image = generated_image.squeeze().permute(1, 2, 0).detach().numpy()  # Adjust dimensions for plotting
+    generated_image = generated_image.squeeze().permute(1, 2, 0).detach().cpu().numpy()  # Adjust dimensions for plotting
 
     # Display the original and reconstructed images
     plt.figure(figsize=(8, 4))

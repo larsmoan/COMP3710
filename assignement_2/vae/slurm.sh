@@ -13,4 +13,3 @@
 conda activate comp3710-env
 
 python run.py
-python generation.py
