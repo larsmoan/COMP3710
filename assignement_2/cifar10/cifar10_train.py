@@ -8,7 +8,7 @@ import wandb
 
 # --------- Hyperparameters ----------
 wandb.init(project="cluster_CIFAR10", name="RESNET_18")
-wandb.config.update({"architecture": "cifar10model", "dataset": "CIFAR-10", "epochs": 1, 
+wandb.config.update({"architecture": "cifar10model", "dataset": "CIFAR-10", "epochs": 80, 
                      "batch_size": 128, "weight_decay": 5e-4, "max_lr": 0.1, "grad_clip": 1.5})
 
 
