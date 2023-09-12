@@ -9,3 +9,7 @@ __pycache__/
 
 data/
 vae_mri/
+wandb/
+__pycache__/
+
+*.pth
