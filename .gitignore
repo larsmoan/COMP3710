@@ -13,3 +13,5 @@ wandb/
 __pycache__/
 
 *.pth
+
+generated_images/
