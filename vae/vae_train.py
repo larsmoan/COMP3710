@@ -22,7 +22,7 @@ dataset = get_dataset('vae_mri')
 dataloader = DataLoader(dataset, batch_size=32, shuffle=True)
 
 # Initialize the VAE model
-latent_dim = 2
+latent_dim = 128
 vae = VAE(latent_dim)
 vae.to(device)
 
@@ -42,6 +42,3 @@ for epoch in range(wandb.config.epochs):
         learning_rate = optimizer.param_groups[0]['lr']
         wandb.log({"Epoch": epoch, "Learning_rate": learning_rate, "Loss": loss.item(), "Bathc": {batch_idx+1}})  
 
-# Visualize the latent space using UMAP (similar to previous code)
-# Generate samples from the latent space (similar to previous code)
-# Evaluate the model (optional, similar to previous code)
