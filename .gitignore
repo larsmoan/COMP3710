@@ -14,4 +14,6 @@ __pycache__/
 
 *.pth
 
-generated_images/
+#This is so to not push the err.txt and out.txt that rangpur creates
+*.txt
+

@@ -13,7 +13,7 @@ dataloader = DataLoader(dataset, batch_size=32, shuffle=True)
 # Load your VAE model
 latent_dim = 2  # Assuming your latent space is 2D
 model = VAE(latent_dim)
-model.load_state_dict(torch.load('vae_model.pth'))  # Load your trained model
+model.load_state_dict(torch.load('vae_model.pth', map_location=torch.device('cpu')))
 model.eval()  # Set the model to evaluation mode
 
 # Assuming 'dataset' is your dataset and 'vae_model' is your trained VAE
@@ -27,11 +27,9 @@ for batch in dataloader:
 latent_vectors = np.vstack(latent_vectors)
 
 # Visualize the 2D latent space
-plt.scatter(latent_vectors[:, 0], latent_vectors[:, 1], c=label_values, cmap='viridis')
-plt.colorbar()
-plt.show()
+plt.scatter(latent_vectors[:, 0], latent_vectors[:, 1])
+plt.xlabel("Dim1")
+plt.ylabel("Dim2")
 
-
-
-
-
+#Save the fig
+plt.savefig('latent_space.png')
