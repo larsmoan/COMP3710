@@ -1,6 +1,7 @@
 .venv
 .env
 
+*.
 
 #Ignore pycache
 __pycache__/
