@@ -8,7 +8,7 @@ import wandb
 
 # --------- Hyperparameters ----------
 wandb.init(project="cluster_CIFAR10", name="RESNET_18")
-wandb.config.update({"architecture": "cifar10model", "dataset": "CIFAR-10", "epochs": 80, 
+wandb.config.update({"architecture": "cifar10model", "dataset": "CIFAR-10", "epochs": 1, 
                      "batch_size": 128, "weight_decay": 5e-4, "max_lr": 0.1, "grad_clip": 1.5})
 
 
@@ -87,7 +87,7 @@ for epoch in range(wandb.config.epochs):
       total += labels.size(0)
       correct += (predicted == labels).sum().item()
       acc = 100 * correct / total
-      if acc > best_acc:
+      if acc > best_acc and acc > 90:
         best_acc = acc
         torch.save(model.state_dict(), 'cifar10_resnet18.pth')
     wandb.log({"accuracy": 100*correct/total})
