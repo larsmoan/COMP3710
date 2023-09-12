@@ -4,14 +4,9 @@ import torchvision
 import torchvision.transforms as transforms
 from models import ResNet18, ResNet34
 from torch.utils.data import DataLoader
-import time
 import wandb
 
-
-start_time = time.time()
-
 # --------- Hyperparameters ----------
-
 wandb.init(project="cluster_CIFAR10", name="RESNET_18")
 wandb.config.update({"architecture": "cifar10model", "dataset": "CIFAR-10", "epochs": 80, 
                      "batch_size": 128, "weight_decay": 5e-4, "max_lr": 0.1, "grad_clip": 1.5})
@@ -53,8 +48,8 @@ model.to(device)
 criterion = nn.CrossEntropyLoss()
 optimizer = torch.optim.SGD(model.parameters(), lr=wandb.config.max_lr, momentum=0.9, weight_decay=wandb.config.weight_decay)  #Swap out this one for higher acc
 
-total_steps = len(train_loader)
-scheduler = torch.optim.lr_scheduler.OneCycleLR(optimizer, max_lr=wandb.config.max_lr, epochs=wandb.config.epochs, total_steps=total_steps)
+
+scheduler = torch.optim.lr_scheduler.OneCycleLR(optimizer, max_lr=wandb.config.max_lr, epochs=wandb.config.epochs, steps_per_epoch=len(train_loader))
 
 
 
@@ -71,13 +66,12 @@ for epoch in range(wandb.config.epochs):
     optimizer.zero_grad()
     loss.backward()
     optimizer.step()
+    scheduler.step()
 
     if (i+1) % 100 == 0:
-      print("Epoch [{}/{}], Step [{}/{}] Loss {:.5f}".format(epoch+1, wandb.config.epochs, i+1, total_steps, loss.item()))
-
       learning_rate = optimizer.param_groups[0]['lr']
       wandb.log({"epoch": epoch, "learning_rate": learning_rate, "loss": loss.item()})  
-  scheduler.step()
+  
 
   #Testing each epoch
   model.eval()
@@ -99,6 +93,3 @@ for epoch in range(wandb.config.epochs):
     wandb.log({"accuracy": 100*correct/total})
 
 
-#Get the duration of the script
-end_time = time.time()
-print("Duration of the script: {} seconds".format(end_time - start_time))

@@ -1,8 +1,7 @@
 wandb: Currently logged in as: lars-ostberg-moan. Use `wandb login --relogin` to force relogin
 wandb: Tracking run with wandb version 0.15.10
-wandb: Run data is saved locally in /home/Student/s4827064/COMP3710/cifar10/wandb/run-20230912_094129-owbo0dg9
+wandb: Run data is saved locally in /home/Student/s4827064/COMP3710/cifar10/wandb/run-20230912_112125-ddrxcuqd
 wandb: Run `wandb offline` to turn off syncing.
-wandb: Syncing run more_blocks
-wandb: ⭐️ View project at https://wandb.ai/lars-ostberg-moan/cluster_CIFAR10_0809
-wandb: 🚀 View run at https://wandb.ai/lars-ostberg-moan/cluster_CIFAR10_0809/runs/owbo0dg9
-slurmstepd: error: *** JOB 71786 ON vgpudev-0 CANCELLED AT 2023-09-12T10:01:37 DUE TO TIME LIMIT ***
+wandb: Syncing run RESNET_18
+wandb: ⭐️ View project at https://wandb.ai/lars-ostberg-moan/cluster_CIFAR10
+wandb: 🚀 View run at https://wandb.ai/lars-ostberg-moan/cluster_CIFAR10/runs/ddrxcuqd

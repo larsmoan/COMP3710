@@ -1,0 +1,7 @@
+wandb: Currently logged in as: lars-ostberg-moan. Use `wandb login --relogin` to force relogin
+wandb: Tracking run with wandb version 0.15.10
+wandb: Run data is saved locally in /home/Student/s4827064/COMP3710/vae/wandb/run-20230912_113134-plefnzk4
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run VAE
+wandb: ⭐️ View project at https://wandb.ai/lars-ostberg-moan/OSASIS_VAE_rangpur
+wandb: 🚀 View run at https://wandb.ai/lars-ostberg-moan/OSASIS_VAE_rangpur/runs/plefnzk4
