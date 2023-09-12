@@ -20,6 +20,7 @@ black = "^23.7.0"
 flake8 = "^6.1.0"
 gdown = "^4.7.1"
 wandb = "^0.15.10"
+jupyter = "^1.0.0"
 
 
 [tool.poetry.group.dev.dependencies]
