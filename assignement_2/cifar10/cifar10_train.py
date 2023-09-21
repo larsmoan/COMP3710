@@ -19,7 +19,7 @@ print('Using device:', device)
 
 train_transform = transforms.Compose(
     [transforms.ToTensor(),
-     transforms.Normalize((0.4914, 0.4822, 0.465), (0.2023, 0.01994, 0.2010)),
+     transforms.Normalize((0.4914, 0.4822, 0.465), (0.2023, 0.01994, 0.2010)),  #means and std for the three channels
      transforms.RandomHorizontalFlip(),
      transforms.RandomCrop(32,padding=4, padding_mode='reflect')
 ])
@@ -91,5 +91,3 @@ for epoch in range(wandb.config.epochs):
         best_acc = acc
         torch.save(model.state_dict(), 'cifar10_resnet18.pth')
     wandb.log({"accuracy": 100*correct/total})
-
-
