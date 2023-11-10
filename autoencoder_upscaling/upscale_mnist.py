@@ -4,6 +4,7 @@ import torch.optim as optim
 from torchvision import datasets, transforms
 from torch.utils.data import DataLoader
 
+# Define the Autoencoder Architecture
 class Autoencoder(nn.Module):
     def __init__(self):
         super(Autoencoder, self).__init__()
@@ -25,19 +26,20 @@ class Autoencoder(nn.Module):
         x = self.decoder(x)
         return x
 
-
+# Load and Preprocess the MNIST Dataset
 transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.5,), (0.5,))])
 
 train_dataset = datasets.MNIST(root="./data", train=True, transform=transform, download=True)
 train_loader = DataLoader(train_dataset, batch_size=128, shuffle=True)
 
+# Initialize the Autoencoder and Define Loss Function
 autoencoder = Autoencoder()
 
 criterion = nn.MSELoss()
 optimizer = optim.Adam(autoencoder.parameters(), lr=0.001)
 
-
-num_epochs = 10
+# Training Loop
+num_epochs = 50
 
 for epoch in range(num_epochs):
     for batch in train_loader:
@@ -50,7 +52,10 @@ for epoch in range(num_epochs):
 
     print(f'Epoch [{epoch+1}/{num_epochs}], Loss: {loss.item():.4f}')
 
+#Save the model
+torch.save(autoencoder.state_dict(), 'autoencoder.pth')
 
+# Upscale an Example Image
 import matplotlib.pyplot as plt
 
 # Load a test image from MNIST
