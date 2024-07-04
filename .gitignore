@@ -2,6 +2,7 @@
 .env
 
 *.
+*.pdf
 
 #Ignore pycache
 __pycache__/
